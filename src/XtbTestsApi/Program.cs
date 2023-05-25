@@ -44,7 +44,6 @@ namespace XtbTestsApi
             string loginRequestJson = System.Text.Json.JsonSerializer.Serialize(request_Login);
             #endregion
 
-
             await InitAsync(loginRequestJson);
         }
 
@@ -69,7 +68,6 @@ namespace XtbTestsApi
                 await Console.Out.WriteLineAsync(ex.Message);
                 return false;
             }
-
             return true;
 
         }
@@ -142,11 +140,8 @@ namespace XtbTestsApi
                 }
                 catch (Exception ex)
                 {
-
                 }
-
             }
-
         }
 
         private async Task ResponseProcessing(IResponseMessage iMessage)
@@ -242,7 +237,17 @@ namespace XtbTestsApi
                             //    };
                             //    NadajZapytaniuCustomTagIdodajDoSlownika(getIbsHistory);
                             //    await SendRequestAsync(_ws, getIbsHistory);
-                            //    break;
+
+                            MarginTradeArg argMarginTrade = new MarginTradeArg("EURPLN", 1); ;
+                            RequestParametersDto getMarginTrade = new RequestParametersDto()
+                            {
+                                command = RequestCommands.GetMarginTrade,
+                                arguments = argMarginTrade
+                            };
+                            NadajZapytaniuCustomTagIdodajDoSlownika(getMarginTrade);
+                            await SendRequestAsync(_ws, getMarginTrade);
+
+                            break;
 
 
                         case RequestCommands.GetAllSymbols:
@@ -303,12 +308,24 @@ namespace XtbTestsApi
 
                             }
                             break;
-                        case RequestCommands.GetIbsHistory:
+                        //case RequestCommands.GetIbsHistory:
+                        //    if (response.returnData is null) return;
+                        //    try
+                        //    {
+                        //        var returnData5 = response.returnData.ToString();
+                        //        var getIbsHistory = System.Text.Json.JsonSerializer.Deserialize<IB_record[]>(returnData5);
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+
+                        //    }
+                        //    break;
+                        case RequestCommands.GetMarginTrade:
                             if (response.returnData is null) return;
                             try
                             {
-                                var returnData5 = response.returnData.ToString();
-                                var GetIbsHistory = System.Text.Json.JsonSerializer.Deserialize<IB_record[]>(returnData5);
+                                var returnData6 = response.returnData.ToString();
+                                var MarginTrade = System.Text.Json.JsonSerializer.Deserialize<MargineTradeParameters>(returnData6);
                             }
                             catch (Exception ex)
                             {

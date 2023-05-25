@@ -14,6 +14,7 @@ namespace TradingStation.Api.XTB.Request
         public object ? returnData { get; set; }
 
         public string? customTag { get; set; }
+       
     }
     public interface IResponseMessage
     {

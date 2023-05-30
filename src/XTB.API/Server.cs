@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace TradingStation.Api.XTB
 {
+    public enum ServerType
+    {
+        Real,
+        Demo
+    }
     public static class Server
     {
         public static string ServerDemo = "wss://ws.xtb.com/demo";

@@ -15,7 +15,7 @@ namespace XtbTestsApi
 
         public async Task MainAsync()
         {
-            #region  Tworzenie nowego zapytania (requestu)
+            
 
             RequestParametersDto request_Login = new RequestParametersDto();
             var wczytywanieLog = wczytywanieLoginuZplikuJson(); 

@@ -146,6 +146,20 @@ namespace TradingStation.Api.XTB.Request
         public async Task SendLoginRequest(LoginParameters parameters)
             => await SendRequest(NewRequest(RequestCommands.Login,parameters));
 
+
+
+
+
+        public async Task SendGetMarginLevelRequstTime()
+        {
+            TimeSpan TimeS = TimeSpan.FromMilliseconds(1.0);
+
+            await SendRequest(NewRequest(RequestCommands.GetMarginLevel, TimeS));
+
+        }
+
+
+
         public async Task SendGetAllSymbolsRequest()
         {
             RequestParametersDto request = new() { command = RequestCommands.GetAllSymbols };
@@ -166,9 +180,10 @@ namespace TradingStation.Api.XTB.Request
 
         public async Task SendGetMarginTradeRequest() 
             => await SendRequest(NewRequest(RequestCommands.GetMarginTrade));
+       
 
-        
 
 
     }
+    
 }

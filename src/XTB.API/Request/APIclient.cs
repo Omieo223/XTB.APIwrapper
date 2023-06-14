@@ -59,12 +59,16 @@ namespace TradingStation.Api.XTB.Request
 
                                 if (string.IsNullOrWhiteSpace(sessionId))
                                 {
+
                                     new Exception("statusId = false");
+
                                 }
+                                _= SendGetMarginLevelRequest();
                                 _sesionID = sessionId;
                             }
                             break;
                         case RequestCommands.GetMarginLevel:
+                            ;
                             break;
                         case RequestCommands.GetAllSymbols:
                             break;
@@ -147,18 +151,22 @@ namespace TradingStation.Api.XTB.Request
             => await SendRequest(NewRequest(RequestCommands.Login,parameters));
 
 
+        //public async Task SendGetMarginLevelRequstTime()
+        //{
+        //    TimeSpan SendingTime = TimeSpan.FromMilliseconds(1.0);
 
-
-
+        //    await SendRequest(NewRequest(RequestCommands.GetMarginLevel, SendingTime));
+        
+        //}
         public async Task SendGetMarginLevelRequstTime()
         {
-            TimeSpan TimeS = TimeSpan.FromMilliseconds(1.0);
-
-            await SendRequest(NewRequest(RequestCommands.GetMarginLevel, TimeS));
-
+            
+            while (true)
+            {
+                await Task.Delay(1000);
+                await SendGetMarginLevelRequest();  
+            }
         }
-
-
 
         public async Task SendGetAllSymbolsRequest()
         {
@@ -168,7 +176,9 @@ namespace TradingStation.Api.XTB.Request
 
         private RequestParametersDto NewRequest(string command)
            => new() { command = command };
-        
+
+        public async Task SendGetMarginLevelRequest()
+            => await SendRequest(NewRequest(RequestCommands.GetMarginLevel));
         public async Task SendGetCalendarRequest()
             => await SendRequest(NewRequest(RequestCommands.GetCalendar));
 

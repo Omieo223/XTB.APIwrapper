@@ -50,6 +50,8 @@ namespace TradingStation.Api.XTB.Request
                 {
                     _ = GuidTags.Remove(guid, out _);
 
+
+
                     switch (command)
                     {
                         case RequestCommands.Login:

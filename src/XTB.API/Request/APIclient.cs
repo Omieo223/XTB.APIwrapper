@@ -67,6 +67,11 @@ namespace TradingStation.Api.XTB.Request
                                 }
                                 _= SendGetMarginLevelRequest();
                                 _sesionID = sessionId;
+
+                                SendGetTradesHistoryRequest(
+                                    new DateTime(2024, 08, 15),
+                                    new DateTime(2022, 06, 14));
+                                SendGetTradesRequest(true);
                             }
                             break;
                         case RequestCommands.GetMarginLevel:
@@ -81,6 +86,11 @@ namespace TradingStation.Api.XTB.Request
                         case RequestCommands.GetServerTime:
                             break;
                         case RequestCommands.GetMarginTrade:
+                            break;
+                        case RequestCommands.GetTradesHistory:
+                            break;
+                        case RequestCommands.GetTrades:
+                            ;
                             break;
                     }
                 }
@@ -152,14 +162,6 @@ namespace TradingStation.Api.XTB.Request
         public async Task SendLoginRequest(LoginParameters parameters)
             => await SendRequest(NewRequest(RequestCommands.Login,parameters));
 
-
-        //public async Task SendGetMarginLevelRequstTime()
-        //{
-        //    TimeSpan SendingTime = TimeSpan.FromMilliseconds(1.0);
-
-        //    await SendRequest(NewRequest(RequestCommands.GetMarginLevel, SendingTime));
-        
-        //}
         public async Task SendGetMarginLevelRequstTime()
         {
             
@@ -169,7 +171,6 @@ namespace TradingStation.Api.XTB.Request
                 await SendGetMarginLevelRequest();  
             }
         }
-
         public async Task SendGetAllSymbolsRequest()
         {
             RequestParametersDto request = new() { command = RequestCommands.GetAllSymbols };
@@ -193,9 +194,49 @@ namespace TradingStation.Api.XTB.Request
         public async Task SendGetMarginTradeRequest() 
             => await SendRequest(NewRequest(RequestCommands.GetMarginTrade));
        
+        public async Task SendGetTradesHistoryRequest(DateTime end, DateTime start)
+        {
 
+            var hisparam = new HistoryParameters(
+                D1ateTimeToUnixMilliseconds(end),
+                D1ateTimeToUnixMilliseconds(start));
+
+            //var hisparam = new HistoryParameters(
+            //    0,
+            //    0);
+
+            RequestParametersDto getHisory = new RequestParametersDto()
+            {
+                command = RequestCommands.GetTradesHistory,
+                arguments = hisparam,
+            };
+
+            await SendRequest(getHisory);
+        }
+
+        public long D1ateTimeToUnixMilliseconds(DateTime hisparam)
+        {
+
+            DateTimeOffset date = new DateTimeOffset(hisparam.ToUniversalTime());
+            return date.ToUnixTimeMilliseconds();
+
+        }
+        public async Task SendGetTradesRequest(bool openedOnly)
+        {
+
+            var openedOnly1 = new GetTradesArg();
+
+
+            RequestParametersDto getTrades = new RequestParametersDto()
+            {
+                command = RequestCommands.GetTrades,
+                arguments = openedOnly1,
+            };
+
+            await SendRequest(getTrades);
+        }
 
 
     }
-    
+
 }

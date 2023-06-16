@@ -16,6 +16,9 @@ namespace TradingStation.Api.XTB.Request
         public const string GetServerTime = "getServerTime";
         //public const string GetIbsHistory = "getIbsHistory"; nieaktywne
         public const string GetMarginTrade = "getMarginTrade";
+        public const string GetTradesHistory = "getTradesHistory";
+        public const string GetTrades = "getTrades";
+        
 
 
     }

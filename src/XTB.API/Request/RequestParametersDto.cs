@@ -12,5 +12,6 @@ namespace TradingStation.Api.XTB.Request
         public object arguments { get; set; }
         public string streamSesionId { get; set; }
         public string? customTag { get; set; }
+        
     }
 }

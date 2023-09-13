@@ -50,8 +50,6 @@ namespace TradingStation.Api.XTB.Request
                 {
                     _ = GuidTags.Remove(guid, out _);
 
-
-
                     switch (command)
                     {
                         case RequestCommands.Login:
@@ -71,6 +69,7 @@ namespace TradingStation.Api.XTB.Request
                                 SendGetTradesHistoryRequest(
                                     new DateTime(2024, 08, 15),
                                     new DateTime(2022, 06, 14));
+
                                 SendGetTradesRequest(true);
                             }
                             break;
